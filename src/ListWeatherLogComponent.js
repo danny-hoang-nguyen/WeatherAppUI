@@ -63,9 +63,14 @@ render(){
                                 log =>
                                             <tr key={log.id}>
                                                 {/* <td>{log.id}</td> */}
-                                                <td>{log.cityName}</td>
+                                                <td>
+                                                <pre>
+                                                {log.cityName}
+                                                {log.logDate}
+                                                </pre>
+                                                </td>
                                                 <td>{log.logDate}</td>
-                                                <td>{log.tempC}</td>
+                                                <td>{log.tempC} C/{log.tempK} K</td>
                                                 <td>                
                                                
                                                 {log.wmainType}

@@ -9,7 +9,7 @@ class SearchWeatherComponent extends Component {
         // console.log('json data:' + data);
         this.state ={
             // searchText: null,
-            searchResults: [], 
+            searchResults: '', 
             suggestions: [],
             text: '',
             // items: [],
@@ -55,49 +55,128 @@ class SearchWeatherComponent extends Component {
             </ul>
         )
     }
-    performSearch = () => {
-        const {searchResults} = this.state;
+    // performSearch = () => {
+    //     const {searchResults} = this.state;
        
-        fetch(`http://localhost:8080/fetch-log?cityName=Hanoi`)
-          .then(response => response.json())
-          .then(responseData => {
-            this.setState({
-                searchResults: responseData.data,
-            //   loading: false
-            });
-          })
-          .catch(error => {
-            console.log('Error fetching and parsing data', error);
-          });
+    //     fetch(`http://localhost:8080/fetch-log?cityName=Hanoi`)
+    //       .then(response => response.json())
+    //       .then(responseData => {
+    //         this.setState({
+    //             searchResults: responseData.data,
+    //         //   loading: false
+    //         });
+    //       })
+    //       .catch(error => {
+    //         console.log('Error fetching and parsing data', error);
+    //       });
 
-        if(searchResults.length===0){
-            return null;
-        }
+    //     if(searchResults.length===0){
+    //         return null;
+    //     }
+    //     return (
+    //     <ul>
+    //         {
+    //             searchResults.map((item)=><li>{item.cityName}</li>)
+    //         }
+    //     </ul>
+    //     )
+    //   }
+
+    deleteLog(logId) {
+        ApiService.deleteLog(logId)
+           .then(res => {
+            //    this.setState({message : 'Log deleted successfully.'});
+               this.setState({searchResults: ''});
+           })
+
+    }
+    returnDiv(){
+        const {searchResults} = this.state;
+        if(searchResults!=='')
         return (
-        <ul>
-            {searchResults.map((item)=><li>{item.cityName}</li>)}
-        </ul>
+            <div className="container">
+                <div className="row">
+                <div className="col-1"> </div>
+                    <div className="col-10">
+                    
+                    <div>
+                            <table className="table table-borderless">
+                            <thead>
+                                <tr>
+                                    {/* <th className="hidden">Id</th> */}
+                                    <th class="text-center"></th>
+                                    <th class="text-center"></th>
+                                    <th class="text-center"> </th>
+                                    <th class="text-center"></th>
+                                    <th class="text-center"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    // this.state.logs.map(
+                                // log =>
+                                            <tr key={searchResults.id}>
+                                                {/* <td>{log.id}</td> */}
+                                                <td>{searchResults.cityName}</td>
+                                                <td>{searchResults.logDate}</td>
+                                                <td>{searchResults.tempC} C/{searchResults.tempK} K</td>
+                                                <td>                
+                                               
+                                                {searchResults.wmainType}
+                                                
+                                                </td>
+                                                <td>
+                                                {/* <img src="http://openweathermap.org/img/wn/10d@2x.png"></img> */}
+                                                <img src={`http://openweathermap.org/img/wn/${searchResults.wicon}@2x.png`}/>
+                                                {/* {log.wicon} */}
+                                                </td>
+                                                {/* <td>{log.salary}</td> */}
+                                                <td>
+                                                    <button className="btn btn-success" onClick={() => this.deleteLog(searchResults.id)}> Delete</button>
+                                                    {/* <button className="btn btn-success" onClick={() => this.editUser(user.id)}> Edit</button> */}
+                                                </td>
+                                            </tr>
+                                    // )
+                                }
+                            </tbody>
+                    </table>
+         
+          </div>
+                    
+                    </div>
+                    <div className="col-1"> </div>
+            </div>
+            </div>      
+       
         )
       }
-    getResults() {
+    getFetchedLog() {
         const {searchResults} = this.state;
+        ApiService.fetchLog(this.state.text)
+           .then(res => {
+               this.setState({searchResults : res.data});
+               if(searchResults.length===0) {
+                   console.log('no search found');
+               } 
+               else {
+                   console.log(searchResults);
+                // {this.returnDiv(searchResults)}
+                    // <div>
+                    // <ul>
+                    //   <li>2</li>  
+                    //   <li>3</li>  
+                    // </ul>
+                    // </div>
+                //     <ul> {
+                //         <li>{searchResults.cityName}</li>
+                //     }         
+                // </ul>
+                    // <span>{searchResults.id}</span>
+                    
+               }
+            //    this.setState({logs: this.state.logs.filter(log => log.id !== logId)});
+           })
 
-        ApiService.fetchLog(this.state.text).then(res => {
-            this.setState(()=>(
-                {
-                    searchResults: res.data,
-                }
-            ));
-            console.log('result:::' + searchResults)
-        });
-        if(searchResults.length===0){
-            return null;
-        }
-        return (
-        <ul>
-            {searchResults.map((item)=><li>{item.cityName}</li>)}
-        </ul>
-        )
     }
     render () {
         const {text} = this.state;
@@ -113,9 +192,8 @@ class SearchWeatherComponent extends Component {
             <input value={text} onChange={this.onTextChange} type="text" id="cityN"/> 
                     {this.renderSuggestion()}
            
-             <button className="btn btn-danger" onClick={() => this.getResults()}> Search</button>
-
-          
+             <button className="btn btn-danger" onClick={() => this.getFetchedLog()}> Search</button>
+                {this.returnDiv()}
             </div>
            
         )
