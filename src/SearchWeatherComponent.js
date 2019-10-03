@@ -112,10 +112,10 @@ class SearchWeatherComponent extends Component {
             <div>
             <input value={text} onChange={this.onTextChange} type="text" id="cityN"/> 
                     {this.renderSuggestion()}
-             <div>
+           
              <button className="btn btn-danger" onClick={() => this.getResults()}> Search</button>
 
-            </div>
+          
             </div>
            
         )

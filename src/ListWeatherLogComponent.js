@@ -40,7 +40,7 @@ render(){
     return(
         <div>
 
-            <h2 className="text-center">User Details</h2>
+            <h2 className="text-center">Weather archive</h2>
                 {/* <button className="btn btn-danger" onClick={() => this.addUser()}> Add User</button> */}
             <div className="container">
                 <div className="row">
