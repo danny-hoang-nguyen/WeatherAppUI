@@ -1,0 +1,29 @@
+[
+  {
+    "id": 707860,
+    "name": "Hurzuf",
+    "country": "UA",
+    "coord": {
+      "lon": 34.283333,
+      "lat": 44.549999
+    }
+  },
+  {
+    "id": 727762,
+    "name": "Rastnik",
+    "country": "BG",
+    "coord": {
+      "lon": 25.283331,
+      "lat": 41.400002
+    }
+  },
+  {
+    "id": 596826,
+    "name": "Murava",
+    "country": "LT",
+    "coord": {
+      "lon": 23.966669,
+      "lat": 54.916672
+    }
+  }
+]
