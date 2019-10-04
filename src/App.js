@@ -1,12 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import ListWeatherLogComponent from './ListWeatherLogComponent'
-import SearchWeatherComponent from './SearchWeatherComponent'
+import ListWeatherLogComponent from './component/ListWeatherLogComponent'
+import SearchWeatherComponent from './component/SearchWeatherComponent'
 function App() {
   return (
     <div className="App">
+    <h1>Weather App</h1>
       <SearchWeatherComponent/>
+      <br/>
       <ListWeatherLogComponent/>
     </div>
   );
