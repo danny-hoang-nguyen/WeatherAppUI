@@ -59,9 +59,15 @@ render(){
                                                 </td>
                                                 <td>
                                                     {log.cityName}  {'\n'}
-                                                    <b> {log.logDate} </b>  
-                                                </td>
-                                                <td><span id="temp">{log.tempC}°C</span> {log.wmainType} {'\n'}
+                                                    {/* <b> {log.logDate} </b>   */}
+                                             
+
+                                                        {new Intl.DateTimeFormat('en-US', { 
+                                                        year: 'numeric', month: 'long', day: '2-digit' 
+                                                        }).format(log.wDate)}
+                                               </td>
+                                               <td>
+                                                    <span id="temp">{log.tempC}°C</span> {log.wmainType} {'\n'}
                                                 {log.windSpeed}m/s.  {log.humidity}%,  {log.pressure}hpa
                                                 </td>
                                      
