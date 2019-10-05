@@ -2,7 +2,10 @@
   text-align: center;
   margin-top: 100px;
 }
-
+td{
+  white-space: pre;
+  text-align: left;
+}
 .App-logo {
   height: 40vmin;
 }
@@ -20,4 +23,17 @@
 
 .App-link {
   color: #09d3ac;
+}
+#temp {
+  text-align: center;
+  padding: 0.3em;
+  color: white;
+  background-color: grey;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  border-radius: 0.1em;
+}
+.App-Compponent {
+  margin: 150px auto 0 auto;
+  width: 600px;
 }
