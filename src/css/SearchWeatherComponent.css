@@ -7,7 +7,7 @@
     width: 100%;
 }
 .SearchWeatherComponent ul {
-    padding-left: 15px;
+    padding-left: 10px;
     border: 1px solid grey;
     width: 88%;
     list-style-type: none;

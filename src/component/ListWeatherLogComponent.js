@@ -46,7 +46,7 @@ render(){
                 <div className="row">
                 <div className="col-1"> </div>
                     <div className="col-10">
-                        <table className="table">
+                        <table className="table table-hover">
                             <thead>
                             </thead>
                             <tbody>

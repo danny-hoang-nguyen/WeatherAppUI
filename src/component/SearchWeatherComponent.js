@@ -13,6 +13,7 @@ class SearchWeatherComponent extends Component {
             searchResults: '', 
             suggestions: [],
             text: '',
+            error:'',
             // items: [],
         }
 
@@ -21,6 +22,9 @@ class SearchWeatherComponent extends Component {
     }
     onTextChange=(e)=> {
         const value=e.target.value;
+        this.setState(()=>({
+            error: ''
+        }))
         let suggestions=[];
         if(value.length>3) {
             const regex = new RegExp(`^${value}`,'i');
@@ -47,7 +51,7 @@ class SearchWeatherComponent extends Component {
         }
         return(
             <ul>
-                {suggestions.map((item)=><li onClick={()=>this.selecteSuggestion(item)}>{item}</li>)}
+                {suggestions.map((item)=><li key={item} onClick={()=>this.selecteSuggestion(item)}>{item}</li>)}
             </ul>
         )
     }
@@ -88,7 +92,7 @@ class SearchWeatherComponent extends Component {
 
     }
     returnDiv(searchResults){
-        if(searchResults!=='')
+        if(this.state.searchResults!=='') {
         return (
         <div className="container">
                 <div className="row">
@@ -106,7 +110,10 @@ class SearchWeatherComponent extends Component {
                                         </td>
                                         <td>
                                             {searchResults.cityName}  {'\n'}
-                                            <b> {searchResults.logDate} </b>  
+                                            {new Intl.DateTimeFormat('en-US', 
+                                                        { 
+                                                        year: 'numeric', month: 'long', day: '2-digit' 
+                                                        }).format(searchResults.wDate)} 
                                         </td>
                                         <td><span id="temp">{searchResults.tempC}°C</span> {searchResults.wmainType} {'\n'}
                                             {searchResults.windSpeed}m/s.  {searchResults.humidity}%,  {searchResults.pressure}hpa
@@ -123,6 +130,9 @@ class SearchWeatherComponent extends Component {
                     <div className="col-1"> </div>
                 </div>
               </div>    
+        ) } else if(this.state.error!='')
+        return (
+            <span>No result found for city "{this.state.text}"</span>
         )
       }
     getFetchedLog() {
@@ -131,7 +141,10 @@ class SearchWeatherComponent extends Component {
             ApiService.fetchLog(this.state.text.trim())
             .then(res => {
                 this.setState({searchResults : res.data});
-            }) 
+            }).catch(e=>{
+                console.log('log is here:' + e);
+                this.setState({error:e, searchResults:''})
+            })
         }
     }
 render () {
